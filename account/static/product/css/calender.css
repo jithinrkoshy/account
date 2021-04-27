@@ -1,0 +1,59 @@
+
+.cal{
+   
+    /* background-color:darkgray; */
+    background-color:#efefef;
+
+
+    padding: 10px;
+    box-shadow: 1px 2px 10px #888888;
+    
+    
+}
+
+.green{
+    color: chartreuse;
+}
+
+.red{
+    color:crimson;
+}
+
+.purple{
+    color:purple;
+}
+
+.black{
+    color: black;
+}
+
+#cal-table{
+
+    width: 100%;
+}
+
+#cal-table td,#cal-table th {
+    border: 1px solid #acaaaa;
+    text-align: center;
+    padding: 4px;
+  }
+
+ 
+  .row-cal .col-md-12{
+    margin: auto;
+    
+}
+
+.row-for-vw-nxt a{
+    text-decoration: none;
+}
+
+
+.row-for-vw-nxt .col-md-6 button{
+    width: 100%;
+}
+
+.row-for-vw-nxt .col-md-3 button{
+    width: 100%;
+}
+

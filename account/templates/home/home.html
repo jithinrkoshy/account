@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="{% static 'home/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+
+    
+
+        <title>
+            Account
+        </title>
+    </head>
+    <body>
+        <header>
+        <nav>
+            <div class="container-fluid nav-cont">
+                <div class="row nav-row pt-1">
+                    <div class="col-12 nav-col">
+                       <div class="navbar">
+                            <div class="nav-item-1">
+                                <h2 class="m-auto">
+
+                                    <a class="page-nav-btn" href="{% url 'home:index' %}"> <i class="bi bi-arrow-bar-left"></i> </a>
+                                </h2>
+                                
+
+                            </div>
+
+                            <div class="nav-item-2">
+                                <h2 class="m-auto">Account</h2>
+                            </div>
+
+                            <div class="nav-item-3">
+                                <a id="home_logout_link" href="{% url 'home:logout_session' %}">  <h2 class="m-auto">Logout</h2> </a>
+                            </div>
+                            
+                       </div>
+                       
+                       
+                        
+                                
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+
+
+        
+            <div class="container-fluid home-cont-fluid">
+
+                <div class="container home-alpha-cont">
+                    <div class="row home-alpha-row">
+                        <div class="col-md-6">
+                            <div class="card card-custom" style="width: 100%;">
+                                <img src="{% static 'home/images/rubbertreeimg.jpeg' %}" class="card-img-top" alt="rubbertree" style="height: 300px;">
+                                <div class="card-body">
+                                  <h5 class="card-title cust-card-title">Employee Data</h5>
+                                  <p class="card-text cust-card-text">Log daily employee data, view the report and export it to excel.</p>
+                                  <a href="{% url 'home:employee:employee_index' %}" class="btn btn-success home-emp-btn">Employee</a>
+                                </div>
+                              </div>
+                        </div>
+
+                        
+                        <div class="col-md-6">
+                            <div class="card card-custom" style="width: 100%;">
+                                <img src="{% static 'home/images/rubberimg.jpg' %}" class="card-img-top" alt="rubber" style="height: 300px;">
+                                <div class="card-body">
+                                  <h5 class="card-title cust-card-title">Product Data</h5>
+                                  <p class="card-text cust-card-text">Log daily product data, view the report and export it to excel.</p>
+                                  <a href="{% url 'home:employee:employee_index' %}" class="btn btn-success home-prod-btn">Product</a>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </header>
+        
+    <script type="text/javascript" src="{% static 'home/js/bootstrap.bundle.min.js' %}" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    </body>
+</html>

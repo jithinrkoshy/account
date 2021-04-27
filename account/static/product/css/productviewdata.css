@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body{
+    background-image: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.1));
+  }
+
+
+.nav-row{
+    background-color: #efefef;
+}
+
+.nav-col{
+    background-color: #167d7f;
+}
+
+.navbar{
+    
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+
+#home_logout_link{
+ 
+    text-decoration: none;
+}
+
+
+
+.navbar h2{
+    
+    font-family: 'Goudy Bookletter 1911', Arial, Helvetica, sans-serif;
+    color:#efefef;
+    
+}
+
+
+header{
+    
+    height: 100vh;
+
+}
+
+.page-nav-btn{
+
+    text-decoration: none;
+    color: white;
+    transform: scale(0.95);
+
+}
+
+.page-nav-btn:hover,
+.page-nav-btn:active{
+
+    transform: scale(1);
+    text-decoration: none;
+    color: white;
+
+}
+
+#view-table{
+    margin-top: 30px;
+    width: 100%;
+}
+
+#view-table th {
+
+    width:15%;
+
+    border: 2px solid #555454;
+    text-align: center;
+    padding: 4px;
+  }
+
+  #view-table td {
+
+    width:15%;
+
+    border: 1px solid #929191;
+    text-align: center;
+    padding: 4px;
+  }
+
+
+
+  .pag-nation{
+      margin-top: 40px;
+      margin-bottom: 10px;
+
+      width: 100%;
+     
+     
+  }
+
+  .pag-nation nav{
+      width: 20%;
+      margin-left: 40%;
+  }
+
+
+  .view-table-dload-col{
+
+    margin-top: 10px;
+    width:100%;
+
+
+  }
+
+  .view-table-dload-col button{
+      width: 30%;
+      margin-left:35%;
+  }
