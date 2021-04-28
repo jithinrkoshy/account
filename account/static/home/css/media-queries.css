@@ -1,0 +1,29 @@
+@media only screen and (max-width:600px){
+
+
+    body{
+        background-image: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.1));
+        
+    }   
+    
+    header{
+        background-image: none;
+ 
+    }
+    
+
+    .base{
+        height: 200px;
+    }
+
+    .base-home{
+        height: 700px;
+    }
+
+
+    .home-cont-fluid .col-md-6{
+
+        margin-top: 30px;
+    }
+
+}

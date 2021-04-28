@@ -315,7 +315,7 @@ def download_excel(request):
             tmp.append(i.employee.e_id)
             tmp.append(i.employee.e_name)
             dt_log = str(i.date).split("-")
-            dt_log = dt_log[2] + "-" + dt_log[1] + "-"  +  dt_log[1]
+            dt_log = dt_log[2] + "-" + dt_log[1] + "-"  +  dt_log[0]
             tmp.append(dt_log)
             tmp.append(i.work_status)
             tmp.append(wk_int[i.work_status])

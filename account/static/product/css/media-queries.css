@@ -1,0 +1,56 @@
+@media only screen and (max-width:600px){
+
+
+    body{
+        background-image: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.1));
+        
+    }   
+    
+    header{
+        background-image: none;
+        height: auto;
+ 
+    }
+
+    .base-prod{
+
+        height:200px;
+    }
+
+    .base-prod-view{
+
+        height:200px;
+        
+    }
+
+    
+
+    .row-for-vw-nxt div{
+
+        margin-bottom: 30px;
+
+    }
+
+    .row-for-vw-nxt div{
+
+        margin-bottom: 30px;
+
+        
+    }
+
+    .row-cal{
+
+        margin-bottom: 20px;
+
+    }
+
+    .row-cal-nav{
+        margin-bottom: 20px;
+
+    }
+
+
+
+
+ 
+}
