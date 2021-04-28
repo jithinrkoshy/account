@@ -19,7 +19,7 @@ $(document).ready(function(){
           
             
             $.ajax({
-                url: '/employee/calender',
+                url: '/product/calender',
                 type: 'POST',
                 data: {'date':selected_date,},
                 headers: { "X-CSRFToken": csrftoken },

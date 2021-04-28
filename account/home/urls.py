@@ -11,6 +11,8 @@ urlpatterns = [
     path('login',views.login_session,name='login_session'),
     path('logout',views.logout_session,name='logout_session'),
     path('accountadmin',views.admin,name='admin'),
-    path('employee/',include('employee.urls',namespace='employee'))
+    path('employee/',include('employee.urls',namespace='employee')),
+    path('product/',include('product.urls',namespace='product'))
+
 
 ]

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'employee/css/empviewdata.css' %}">
+    <link rel="stylesheet" href="{% static 'product/css/productviewdata.css' %}">
 
     
 
@@ -28,7 +28,7 @@
                             <div class="nav-item-1">
                                 <h2 class="m-auto">
 
-                                    <a class="page-nav-btn" href="{% url 'home:employee:employee_index' %}"> <i class="bi bi-arrow-bar-left"></i> </a>
+                                    <a class="page-nav-btn" href="{% url 'home:product:product_index' %}"> <i class="bi bi-arrow-bar-left"></i> </a>
                                 </h2>
                                 
 
@@ -57,53 +57,48 @@
         <div class="container">
             <div class="row view-table-row">
 
-                <div class="col-md-12 pag-nation">
-                    <input type="text" value="1" id="page-shift-left" hidden>
-                    <input type="text" value="{{frag}}" id="page-shift-right" hidden>
+                <div class="col-md-6 pag-nation">
+                    
                     <input type="text" value="{{frag}}" id="page-shift-max" hidden>
 
 
 
                     <nav aria-label="Page navigation example">
                         <ul class="pagination" id="main-pag-nation">
-                          <!-- <li class="page-item">
-                            <a class="page-link" id="page-p" href="#" aria-label="Previous">
-                              <span aria-hidden="true">&laquo;</span>
-                            </a>
-                          </li> -->
-
-                          
-
-                          <!-- <li class="page-item"><a class="page-link" id="num1" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-                          <!-- <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li> -->
+                         
                         </ul>
                       </nav>
 
                 </div>
+
+                <div class="col-md-3 nav-date">
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="first_date" id="first_date">
+
+                        </div>
+                      
+                </div>
+                <div class="col-md-3 nav-date">
+
+                    <div class="form-group">
+                        <input type="date" class="form-control" name="last_date" id="last_date">
+
+                    </div>
+
+
+
+                </div>
+
                 <div class="col-md-12 view-table-col">
                     <table id="view-table">
-                        <!-- <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Date</th>
-                            <th>Work Status</th>
-                            <th>Created By</th>
-                            <th>Created Date</th>
-
-                        </tr> -->
-
-                        
-
-
+                                         
                         
                         
                     </table>
                 </div>
 
                 <div class="col-md-12 view-table-dload-col">
-                   <a href="{% url 'home:employee:download_excel' %}"> <button  class="btn btn-primary">Download</button> </a>
+                   <a href="{% url 'home:product:download_excel' %}"> <button  class="btn btn-primary">Download</button> </a>
                 </div>
 
                 
@@ -117,6 +112,6 @@
        
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-     <script type="text/javascript" src="{% static 'employee/js/empviewdata.js' %}"></script> 
+     <script type="text/javascript" src="{% static 'product/js/productviewdata.js' %}"></script> 
     </body>
 </html>

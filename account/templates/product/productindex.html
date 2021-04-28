@@ -63,7 +63,7 @@
 
                         <div class="row row-for-vw-nxt">
                             <div class="col-md-6">
-                               <a href="{% url 'home:employee:emp_view_data' %}"> <button class="btn btn-primary">View Data</button> </a>
+                               <a href="{% url 'home:product:product_view_data' %}"> <button class="btn btn-primary">View Data</button> </a>
                             </div>
                             <div class="col-md-3">
                                 <a href="#"> <button id="btn-prev" class="btn btn-primary"> <i class="bi bi-arrow-bar-left"></i> </button> </a>
@@ -203,7 +203,7 @@
 
                 </div>
                 <div class="col-lg-8 log-col">
-                    <form action="{% url 'home:employee:employee_index' %}" method="post">
+                    <form action="{% url 'home:product:product_index' %}" method="post">
                         {% csrf_token %}
                        
                     <div class="container log-sub-cont">
@@ -223,39 +223,33 @@
                             <div class="col-10">
 
                                 <div class="form-group">
-                                    <label for="log-emp-name">Employee name</label>
-                                    <select class="form-control" name="log-emp-name" id="log-emp-name" aria-describedby="log-emp-name-help">
-                                      <option value="Podimon">Podimon</option>
-                                      <option value="John">John</option>
-                                     
-                                    </select>
-                                    <small id="log-emp-name-help" class="form-text text-muted">Select the name</small>
+                                    <label for="log-prod-count">Sheet Count</label>
+                                    <input type="number" class="form-control" min=0 value=0 name="log-prod-count" id="log-prod-count" aria-describedby="log-prod-count-help">
+                                    <small id="log-prod-count-help" class="form-text text-muted">Count of product</small>
                                   </div>
 
                             </div>
-                            <div class="col-10">
-                                <div class="form-group">
-                                    <label for="log-emp-date">Date</label>
-                                    <input type="date" class="form-control" name="log-emp-date" id="log-emp-date" aria-describedby="log-emp-date-help">
-                                    <small id="log-emp-date-help" class="form-text text-muted">Select date.</small>
-                                  </div>
 
-                            </div>
 
                             <div class="col-10">
                                 <div class="form-group">
-                                    <label for="log-emp-work">Work hours</label>
-                                    <select class="form-control" name="log-emp-work" id="log-emp-work" aria-describedby="log-emp-work-help">
-                                      
-                                      <option value="na">No Activity</option>
-                                      <option value="f" selected>Full</option>
-                                      <option value="h">Half</option>
-                                     
-                                    </select>
-                                    <small id="log-emp-work-help" class="form-text text-muted">Select work hours</small>
+                                    <label for="log-prod-res-count">Sheet Residue Count</label>
+                                    <input type="number" class="form-control" min=0 value=0 name="log-prod-res-count" id="log-prod-res-count" aria-describedby="log-prod-res-count-help">
+                                    <small id="log-prod-res-count-help" class="form-text text-muted">Count of product residue</small>
                                   </div>
 
                             </div>
+
+                            <div class="col-10">
+                                <div class="form-group">
+                                    <label for="log-prod-date">Date</label>
+                                    <input type="date" class="form-control" name="log-prod-date" id="log-prod-date" aria-describedby="log-prod-date-help">
+                                    <small id="log-prod-date-help" class="form-text text-muted">Select date.</small>
+                                  </div>
+
+                            </div>
+
+                            
 
                             <div class="col-10">
                                 <button type="submit" class="btn btn-primary">Submit</button>

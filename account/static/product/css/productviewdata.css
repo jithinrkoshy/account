@@ -103,6 +103,21 @@ header{
   }
 
 
+  .nav-date{
+
+    margin-top: 40px;
+      margin-bottom: 10px;
+
+
+  }
+
+  .nav-date input{
+      width: 70%;
+      margin:auto;
+  }
+
+ 
+
   .view-table-dload-col{
 
     margin-top: 10px;

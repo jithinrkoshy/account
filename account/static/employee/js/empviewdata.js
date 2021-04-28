@@ -1,47 +1,87 @@
 $(document).ready(function(){
 
+
+
+$("#first_date").change(function(){
+
+   
+    date_toggle = 1;
+    $("#page-p").click();
+
+    
+});
+
+
+$("#last_date").change(function(){
+
+    
+    date_toggle = 1;
+    $("#page-p").click();
+
+    
+});
+
     first_html='<li class="page-item"><a class="page-link" id="page-p" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'
     $("#main-pag-nation").append(first_html);
-    
+  
+date_toggle = 0;
+
 last_page = '1'
+
 
 $('#main-pag-nation').on('click','.page-link',function(){
 csrftoken = Cookies.get('csrftoken');
 
 var page_id = ($(this)[0].id).split("-");
-page_id = page_id[1];
-console.log(page_id);
-if(page_id == 'n'){
-    console.log('n');
-    page_id = (parseInt(last_page) + 1).toString();
-    max_val = $("#page-shift-max")[0].value;
-    if(parseInt(page_id)>parseInt(max_val)){
-        page_id = max_val
+if(date_toggle == 0){
+
+    page_id = page_id[1];
+    console.log(page_id);
+    if(page_id == 'n'){
+        console.log('n');
+        page_id = (parseInt(last_page) + 1).toString();
+        max_val = $("#page-shift-max")[0].value;
+        if(parseInt(page_id)>parseInt(max_val)){
+            page_id = max_val
+
+        }
+    }
+    else if(page_id == 'p'){
+        console.log('p');
+
+        page_id = (parseInt(last_page) - 1).toString();
+        
+        if(page_id == '0'){
+            page_id='1';
+        }
 
     }
-}
-else if(page_id == 'p'){
-    console.log('p');
+}    
+else{
 
-    page_id = (parseInt(last_page) - 1).toString();
-    
-    if(page_id == '0'){
-        page_id='1';
-    }
+    page_id='1'
 
 }
+date_toggle = 0;
 
 last_page = page_id
+
+
+first_date = $("#first_date").val();
+last_date = $("#last_date").val();
 
 $.ajax({
     url: '/employee/view/',
     type: 'POST',
-    data: {'page_no':page_id,},
+    data: {'page_no':page_id,'first_date':first_date,'last_date':last_date},
     headers: { "X-CSRFToken": csrftoken },
     dataType: 'json',
     success: function(data) {
 
         
+        var frag = (data.pages).toString();
+       
+        $("#page-shift-max")[0].value = frag;
 
         $("#view-table").empty();
 
@@ -51,7 +91,7 @@ $.ajax({
 
         ar_data = data.final_data
         pages_no = data.pages
-        console.log("hi");
+       
         data_len = ar_data.length
 
         first_html='<tr><th>ID</th><th>Name</th><th>Date</th><th>Work Status</th><th>Created By</th><th>Created Date</th></tr>'
@@ -91,6 +131,26 @@ $.ajax({
 });
 
 
-$(".page-link").click();
+var dt = new Date();
+var month = parseInt(dt.getMonth())
+month = (month+1).toString();
+if(month.length==1){
+    month = "0"+month
+}
+
+dt= dt.getFullYear()+"-"+ month + "-" + dt.getDate();
+
+
+
+
+
+
+$("#first_date").val("2021-04-01");
+$("#last_date").val(dt);
+
+
+
+
+$("#page-p").click();
 
 })

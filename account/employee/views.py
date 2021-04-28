@@ -9,7 +9,7 @@ import math
 import os
 from os import listdir
 from os.path import isfile, join
-
+import sys
 
 
 # Create your views here.
@@ -35,6 +35,7 @@ def get_years(start_year):
         x+=1
     return year_list 
 
+@login_required
 def employee_index(request):
     success=False
     error=False
@@ -131,6 +132,7 @@ def cal_int_str_dash(v_year,v_month,v_day):
     return date    
  
 
+@login_required
 def calender(request):
 
     if request.method == 'POST':
@@ -192,39 +194,56 @@ def get_start_end(n,d_per_p,data_len):
         end_index = data_len
     return start_index,end_index  
 
-
+@login_required
 def emp_view_data(request):
     data = []
-    
-    try:
-        dla = DailyLogAdditional.objects.order_by('daily_log__date') 
-    except DailyLogAdditional.DoesNotExist:
-        dla=None
-    if(dla!=None):
-        l = len(dla)
-        months = {'01':'Jan','02':'Feb','03':'Mar','04':'Apr','05':'May','06':'Jun','07':'Jul','08':'Aug','09':'Sep','10':'Oct','11':'Nov','12':'Dec'}
-        for i in range(l):
-            tmp=[]
-            tmp.append(str(i+1))
-            tmp.append(str(dla[i].daily_log.employee.e_name))
-            log_date = (str(dla[i].daily_log.date)).split("-")
-            log_date = log_date[2] + "-" + months[log_date[1]] + "-" + log_date[0]
-            tmp.append(str(log_date))
-            tmp.append(str(dla[i].daily_log.work_status))
-            tmp.append(str(dla[i].created_by))
-            ct_dt = (str(dla[i].created_by_date)).split(".")[0]
-            tmp.append(ct_dt)
-            data.append(tmp)
-    data_len = len(data)
-    d_per_p = 10
-    frag = math.ceil(data_len/d_per_p)
+    flag=0
     if request.method == 'POST':
+        
+        first_date = request.POST['first_date']
+        last_date  = request.POST['last_date'] 
+        
+        dla=None
+        try:
+            dla = DailyLogAdditional.objects.order_by('daily_log__date')
+            
+        except DailyLogAdditional.DoesNotExist:
+            dla=None
+        except:
+            print(sys.exc_info()[0])    
+
+        if(dla!=None):
+            l = len(dla)
+            x=0
+            months = {'01':'Jan','02':'Feb','03':'Mar','04':'Apr','05':'May','06':'Jun','07':'Jul','08':'Aug','09':'Sep','10':'Oct','11':'Nov','12':'Dec'}
+            for i in range(l):
+                flag=0
+                tmp=[]
+                if(str(dla[i].daily_log.date)>=first_date and str(dla[i].daily_log.date) <= last_date):
+                    flag=1
+                    x+=1
+                tmp.append(str(x))
+                tmp.append(str(dla[i].daily_log.employee.e_name))
+                log_date = (str(dla[i].daily_log.date)).split("-")
+                log_date = log_date[2] + "-" + months[log_date[1]] + "-" + log_date[0]
+                tmp.append(str(log_date))
+                
+                tmp.append(str(dla[i].daily_log.work_status))
+                tmp.append(str(dla[i].created_by))
+                ct_dt = (str(dla[i].created_by_date)).split(".")[0]
+                tmp.append(ct_dt)
+                if(flag==1):
+                    data.append(tmp)
+        data_len = len(data)
+        d_per_p = 10
+        frag = math.ceil(data_len/d_per_p)
+    
         n = int(request.POST['page_no'])
         start_index,end_index = get_start_end(n,d_per_p,data_len)
         final_data = data[start_index:end_index]    
         return JsonResponse({'final_data':final_data,'pages':frag})
     else:
-        return render(request,'employee/empviewdata.html',{'data':data,'frag':frag})
+        return render(request,'employee/empviewdata.html')
 
 
 def get_excel(data):
@@ -263,16 +282,7 @@ def get_excel(data):
         
     row = 1
     col = 0
-    # data = [
-    #     ['e_1','Solomon','22-sep-2020','f',1],
-    #     ['e_2','Daniel','22-sep-2020','f',1],
-    #     ['e_1','Solomon','23-sep-2020','f',1],
-    #     ['e_2','Daniel','23-sep-2020','f',1],
-    #     ['e_1','Solomon','24-sep-2020','f',1],
-    #     ['e_2','Daniel','24-sep-2020','f',1],
-    #     ['e_1','Solomon','25-sep-2020','f',1],
-    #     ['e_2','Daniel','25-sep-2020','f',1],
-    # ]
+
     
     tot_row = len(data)
 
@@ -290,6 +300,8 @@ def get_excel(data):
     workbook.close()
     return filename
 
+
+@login_required
 def download_excel(request):
     data = []
     wk_int = {'f':1,'h':1,'na':0}
