@@ -273,7 +273,7 @@ def get_excel(data):
 
     row = 0
     col = 0
-    header = ['Emp_id','Emp_name','Date','Work Status','Work Status Int']
+    header = ['Emp_id','Emp_name','Date','Work Status','Status(Vettu)','Status(Cheekal)','Status(Vettu&Cheekal)']
     tot_col = len(header)
     for i in range(tot_col):
         worksheet.write(row, col+i, header[i],cell_format)
@@ -292,9 +292,15 @@ def get_excel(data):
             item = rec[j]
             worksheet.write(row, col+j, item,cell_format)
         row+=1 
-    worksheet.merge_range("A"+str(row+1)+":D"+str(row+1),'Total',cell_format)
+    worksheet.merge_range("A"+str(row+1)+":C"+str(row+1),'Total',cell_format)
 
-    worksheet.write(row, 4, "=SUM(E2:E"+str(row)+")",cell_format)
+    worksheet.write(row, 3, "=COUNTA(D2:D"+str(row)+")/2",cell_format)
+    worksheet.write(row, 4, "=SUM(E2:E"+str(row)+")/2",cell_format)
+    worksheet.write(row, 5, "=SUM(F2:F"+str(row)+")/2",cell_format)
+    worksheet.write(row, 6, "=SUM(G2:G"+str(row)+")/2",cell_format)
+
+  
+
     
 
     workbook.close()
@@ -304,7 +310,9 @@ def get_excel(data):
 @login_required
 def download_excel(request):
     data = []
-    wk_int = {'f':1,'h':1,'na':0}
+    wk_full_int = {'f':1,'h':0,'fh':1,'na':0}
+    wk_half_int = {'f':0,'h':1,'fh':1,'na':0}
+    wk_full_half_int = {'f':0,'h':0,'fh':1,'na':0}
     try:
         tmp_obj = DailyLog.objects.order_by('date')
     except DailyLog.DoesNotExist:
@@ -318,7 +326,11 @@ def download_excel(request):
             dt_log = dt_log[2] + "-" + dt_log[1] + "-"  +  dt_log[0]
             tmp.append(dt_log)
             tmp.append(i.work_status)
-            tmp.append(wk_int[i.work_status])
+            tmp.append(wk_full_int[i.work_status])
+            tmp.append(wk_half_int[i.work_status])
+            tmp.append(wk_full_half_int[i.work_status])
+
+
             data.append(tmp)
             
 
