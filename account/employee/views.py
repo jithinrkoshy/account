@@ -267,16 +267,25 @@ def get_excel(data):
     workbook = xlsxwriter.Workbook(filename)
     worksheet = workbook.add_worksheet('accsheet')
 
+    cell_format_heading = workbook.add_format()
+    cell_format_heading.set_border(1)
+    cell_format_heading.set_bg_color('yellow')
 
-    cell_format = workbook.add_format()
+    cell_format = workbook.add_format()  
     cell_format.set_border(1)
+
+    cell_format_result = workbook.add_format()
+    cell_format_result.set_border(1)
+    cell_format_result.set_border_color('red')
+    cell_format_result.set_align('center')
+    cell_format_result.set_align('vcenter')
 
     row = 0
     col = 0
-    header = ['Emp_id','Emp_name','Date','Work Status','Status(Vettu)','Status(Cheekal)','Status(Vettu&Cheekal)']
+    header = ['Sid','Emp_name','Date','Work Status','(PM)Status(Vettu)','(PM)Status(Cheekal)','(PM)Status(Vettu&Cheekal)','(JN)Status(Vettu)','(JN)Status(Cheekal)','(JN)Status(Vettu&Cheekal)']
     tot_col = len(header)
     for i in range(tot_col):
-        worksheet.write(row, col+i, header[i],cell_format)
+        worksheet.write(row, col+i, header[i],cell_format_heading)
         
 
         
@@ -292,16 +301,79 @@ def get_excel(data):
             item = rec[j]
             worksheet.write(row, col+j, item,cell_format)
         row+=1 
-    worksheet.merge_range("A"+str(row+1)+":C"+str(row+1),'Total',cell_format)
+    worksheet.merge_range("A"+str(row+1)+":D"+str(row+1),'Total',cell_format)
 
-    worksheet.write(row, 3, "=COUNTA(D2:D"+str(row)+")/2",cell_format)
-    worksheet.write(row, 4, "=SUM(E2:E"+str(row)+")/2",cell_format)
-    worksheet.write(row, 5, "=SUM(F2:F"+str(row)+")/2",cell_format)
-    worksheet.write(row, 6, "=SUM(G2:G"+str(row)+")/2",cell_format)
+    # for j in range(tot_col):
+    # worksheet.write(row, 3, "=COUNTA(D2:D"+str(row)+")/2",cell_format)
+    worksheet.write(row, 4, "=SUM(E2:E"+str(row)+")",cell_format)
+    worksheet.write(row, 5, "=SUM(F2:F"+str(row)+")",cell_format)
+    worksheet.write(row, 6, "=SUM(G2:G"+str(row)+")",cell_format)
+    worksheet.write(row, 7, "=SUM(H2:H"+str(row)+")",cell_format)
+    worksheet.write(row, 8, "=SUM(I2:I"+str(row)+")",cell_format)
+    worksheet.write(row, 9, "=SUM(J2:J"+str(row)+")",cell_format)
 
-  
+    pm_f = "=SUM(E2:E"+str(row)+")"
+    pm_h = "=SUM(F2:F"+str(row)+")"
+    pm_fh = "=SUM(G2:G"+str(row)+")"
+    jn_f = "=SUM(H2:H"+str(row)+")"
+    jn_h = "=SUM(I2:I"+str(row)+")"
+    jn_fh = "=SUM(J2:J"+str(row)+")"
 
-    
+    row+=1
+    for i in range(tot_col):
+        worksheet.write(row, col+i, "",cell_format)
+
+    for i in range(5):
+        row+=1
+        for j in range(tot_col):
+            if(i==0):
+                worksheet.write(row, col+j, "",cell_format)
+            elif(i==1):
+                if(j==6):
+                    worksheet.merge_range("E"+str(row+1)+":G"+str(row+1),'Podimon[v,c,vc]',cell_format)
+                elif(j==9):
+                    worksheet.merge_range("H"+str(row+1)+":J"+str(row+1),'John[v,c,vc]',cell_format)
+                else:
+                    worksheet.write(row, col+j, "",cell_format)
+            elif(i==2):
+                if(j==4):
+                    worksheet.write(row, col+j, pm_f,cell_format)
+                elif(j==5):
+                    worksheet.write(row, col+j, pm_h,cell_format) 
+
+                elif(j==6):
+                    worksheet.write(row, col+j, pm_fh,cell_format) 
+
+                elif(j==7):
+                    worksheet.write(row, col+j, jn_f,cell_format)
+
+                elif(j==8):
+                    worksheet.write(row, col+j, jn_h,cell_format)
+
+                elif(j==9):
+                    worksheet.write(row, col+j, jn_fh,cell_format)           
+                          
+                else:                 
+                    worksheet.write(row, col+j, "",cell_format)
+
+            elif(i==3):
+                worksheet.write(row, col+j, "",cell_format)  
+
+            else:
+                if(j==6):
+                
+                    worksheet.merge_range("E"+str(row)+":G"+str(row+1),'',cell_format_result)
+                    worksheet.write(row-1, col+j-2, pm_f + "+" + pm_h[1:] + "+" + pm_fh[1:],cell_format_result)
+
+                elif(j==9):
+             
+                    worksheet.merge_range("H"+str(row)+":J"+str(row+1),'',cell_format_result)               
+                    worksheet.write(row-1, col+j-2, jn_f + "+" + jn_h[1:] + "+" + jn_fh[1:],cell_format_result)
+
+                else:
+                    worksheet.write(row, col+j, "",cell_format)                        
+
+
 
     workbook.close()
     return filename
@@ -310,25 +382,41 @@ def get_excel(data):
 @login_required
 def download_excel(request):
     data = []
-    wk_full_int = {'f':1,'h':0,'fh':1,'na':0}
-    wk_half_int = {'f':0,'h':1,'fh':1,'na':0}
+    wk_full_int = {'f':1,'h':0,'fh':0,'na':0}
+    wk_half_int = {'f':0,'h':1,'fh':0,'na':0}
     wk_full_half_int = {'f':0,'h':0,'fh':1,'na':0}
     try:
         tmp_obj = DailyLog.objects.order_by('date')
     except DailyLog.DoesNotExist:
         tmp_obj = None
     if(tmp_obj != None):
+        x=0
         for i in tmp_obj:
+            x+=1
             tmp=[]
-            tmp.append(i.employee.e_id)
+            tmp.append(x)
             tmp.append(i.employee.e_name)
             dt_log = str(i.date).split("-")
             dt_log = dt_log[2] + "-" + dt_log[1] + "-"  +  dt_log[0]
             tmp.append(dt_log)
             tmp.append(i.work_status)
-            tmp.append(wk_full_int[i.work_status])
-            tmp.append(wk_half_int[i.work_status])
-            tmp.append(wk_full_half_int[i.work_status])
+            if(i.employee.e_id=='emp1'):
+
+                tmp.append(wk_full_int[i.work_status])
+                tmp.append(wk_half_int[i.work_status])
+                tmp.append(wk_full_half_int[i.work_status])
+                tmp.append(0)
+                tmp.append(0)
+                tmp.append(0)
+            else:
+                tmp.append(0)
+                tmp.append(0)
+                tmp.append(0)
+                tmp.append(wk_full_int[i.work_status])
+                tmp.append(wk_half_int[i.work_status])
+                tmp.append(wk_full_half_int[i.work_status])
+
+            
 
 
             data.append(tmp)
