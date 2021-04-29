@@ -380,13 +380,14 @@ def get_excel(data):
 
 
 @login_required
-def download_excel(request):
+def download_excel(request , first_date = "2020-01-01",last_date = "2020-02-01"):
+    
     data = []
     wk_full_int = {'f':1,'h':0,'fh':0,'na':0}
     wk_half_int = {'f':0,'h':1,'fh':0,'na':0}
     wk_full_half_int = {'f':0,'h':0,'fh':1,'na':0}
     try:
-        tmp_obj = DailyLog.objects.order_by('date')
+        tmp_obj = DailyLog.objects.filter(date__gte=first_date, date__lte=last_date).order_by('date')
     except DailyLog.DoesNotExist:
         tmp_obj = None
     if(tmp_obj != None):
@@ -423,9 +424,9 @@ def download_excel(request):
             
 
     path = get_excel(data)
-      # this should live elsewhere, definitely
+ 
     if os.path.exists(path):
-        print('here')    
+            
         with open(path, "rb") as excel:
             data = excel.read()
         os.remove(path)

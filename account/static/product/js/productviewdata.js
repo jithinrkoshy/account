@@ -152,4 +152,19 @@ $("#last_date").val(dt);
 
 $(".page-link").click();
 
-})
+
+$("#download-btn-id").click(function(e){
+
+    e.preventDefault();
+
+    var tmp_first = $("#first_date").val();
+    var tmp_last = $("#last_date").val();
+
+    var url = $(this)[0].href + "/" + tmp_first + "/" + tmp_last;
+
+    window.location.href = url;
+
+
+});
+
+}) 

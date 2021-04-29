@@ -10,6 +10,7 @@ urlpatterns = [
     path('calender',views.calender,name='calender'),
     path('view/',views.product_view_data,name='product_view_data'),
     path('view/download',views.download_excel,name='download_excel'),
+    path('view/download/<str:first_date>/<str:last_date>',views.download_excel,name='download_excel_'),
   
  
 

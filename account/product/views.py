@@ -294,12 +294,12 @@ def get_excel(data):
     return filename
 
 @login_required
-def download_excel(request):
+def download_excel(request, first_date = "2020-01-01", last_date = "2020-02-01"):
     data = []
-    
+
     try:
-        tmp_obj = ProductDailyLog.objects.order_by('date')
-    except DailyLog.DoesNotExist:
+        tmp_obj = ProductDailyLog.objects.filter(date__gte=first_date, date__lte=last_date).order_by('date')
+    except ProductDailyLog.DoesNotExist:
         tmp_obj = None
     if(tmp_obj != None):
         x=0
