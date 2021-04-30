@@ -38,6 +38,12 @@ def get_years(start_year):
 
 @login_required
 def product_index(request):
+    test=False
+
+    if(request.user.username == 'test'):
+        test=True
+
+    print(test)    
     success=False
     error=False
     error_value = "Invalid Entries"
@@ -100,11 +106,11 @@ def product_index(request):
                 log_d_flag = ProductLogDateFlag(date=pdate,log_status=True)
                 log_d_flag.save()
             success=True
-            return render(request,'product/productindex.html',{'success':success,'error':error,'error_value':error_value,'year_list':year_list})
+            return render(request,'product/productindex.html',{'success':success,'error':error,'error_value':error_value,'year_list':year_list,'test':test})
         else:    
-            return render(request,'product/productindex.html',{'success':success,'error':error,'error_value':error_value,'year_list':year_list})
+            return render(request,'product/productindex.html',{'success':success,'error':error,'error_value':error_value,'year_list':year_list,'test':test})
 
-    return render(request,'product/productindex.html',{'success':success,'error':error,'error_value':error_value,'year_list':year_list})
+    return render(request,'product/productindex.html',{'success':success,'error':error,'error_value':error_value,'year_list':year_list,'test':test})
 
 
 

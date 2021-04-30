@@ -203,6 +203,86 @@
                     </div>
 
                 </div>
+
+                {% if test %}
+
+                <div class="col-lg-8 log-col">
+                    <form action="" method="post">
+                       
+                       
+                    <div class="container log-sub-cont">
+                        <div class="row log-sub-row">
+                            {% if success %}
+                            <div class="col-10">
+                                <span style="color:green">Successfully Submitted.</span>
+                            </div>
+                            {% endif %}
+
+                            {% if error %}
+                            <div class="col-10">
+                                <span style="color:red">{{error_value}}</span>
+                            </div>
+                            {% endif %}
+                            
+                            <div class="col-10">
+
+                                <div class="form-group">
+                                    <label for="log-emp-name">Employee name</label>
+                                    <select class="form-control" name="log-emp-name" id="log-emp-name" aria-describedby="log-emp-name-help">
+                                      <option value="Podimon">Podimon</option>
+                                      <option value="John">John</option>
+                                     
+                                    </select>
+                                    <small id="log-emp-name-help" class="form-text text-muted">Select the name</small>
+                                  </div>
+
+                            </div>
+                            <div class="col-10">
+                                <div class="form-group">
+                                    <label for="log-emp-date">Date</label>
+                                    <input type="date" class="form-control" name="log-emp-date" id="log-emp-date" aria-describedby="log-emp-date-help">
+                                    <small id="log-emp-date-help" class="form-text text-muted">Select date.</small>
+                                  </div>
+
+                            </div>
+
+                            <div class="col-10">
+                                <div class="form-group">
+                                    <label for="log-emp-work">Work Status</label>
+                                    <select class="form-control" name="log-emp-work" id="log-emp-work" aria-describedby="log-emp-work-help">
+                                      
+                                      <option value="na">No Activity</option>
+                                      <option value="f" selected>Vettu</option>
+                                      <option value="h">Cheekal</option>
+                                      <option value="fh">Both</option>
+
+                                     
+                                    </select>
+                                    <small id="log-emp-work-help" class="form-text text-muted">Select work hours</small>
+                                  </div>
+
+                            </div>
+
+                            <div class="col-10">
+                                <button class="btn btn-primary" disabled>Submit</button>
+
+                            </div>
+
+                            
+
+                        </div>
+                    </div>
+
+                </form>
+                    
+                </div>
+
+
+
+                {% else %}
+
+
+
                 <div class="col-lg-8 log-col">
                     <form action="{% url 'home:employee:employee_index' %}" method="post">
                         {% csrf_token %}
@@ -273,6 +353,12 @@
                 </form>
                     
                 </div>
+
+
+
+
+
+                {% endif %}
             </div>
         </div>
 

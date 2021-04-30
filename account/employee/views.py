@@ -37,6 +37,9 @@ def get_years(start_year):
 
 @login_required
 def employee_index(request):
+    test=False
+    if(request.user.username=='test'):
+        test=True
     success=False
     error=False
     error_value = "Invalid Entries"
@@ -99,11 +102,11 @@ def employee_index(request):
                 log_d_flag = LogDateFlag(date=edate,log_status=True)
                 log_d_flag.save()
             success=True
-            return render(request,'employee/empindex.html',{'success':success,'error':error,'error_value':error_value,'year_list':year_list})
+            return render(request,'employee/empindex.html',{'success':success,'error':error,'error_value':error_value,'year_list':year_list,'test':test})
         else:    
-            return render(request,'employee/empindex.html',{'success':success,'error':error,'error_value':error_value,'year_list':year_list})
+            return render(request,'employee/empindex.html',{'success':success,'error':error,'error_value':error_value,'year_list':year_list,'test':test})
 
-    return render(request,'employee/empindex.html',{'success':success,'error':error,'error_value':error_value,'year_list':year_list})
+    return render(request,'employee/empindex.html',{'success':success,'error':error,'error_value':error_value,'year_list':year_list,'test':test})
 
 def cal_int_str(v_year,v_month,v_day):
     tmp_val = 0

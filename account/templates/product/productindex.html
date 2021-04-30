@@ -203,6 +203,82 @@
                     </div>
 
                 </div>
+
+
+                {% if test %}
+
+
+                <div class="col-lg-8 log-col">
+                    <form action="" method="post">
+                     
+                       
+                    <div class="container log-sub-cont">
+                        <div class="row log-sub-row">
+                            {% if success %}
+                            <div class="col-10">
+                                <span style="color:green">Successfully Submitted.</span>
+                            </div>
+                            {% endif %}
+
+                            {% if error %}
+                            <div class="col-10">
+                                <span style="color:red">{{error_value}}</span>
+                            </div>
+                            {% endif %}
+                            
+                            <div class="col-10">
+
+                                <div class="form-group">
+                                    <label for="log-prod-count">Sheet Count</label>
+                                    <input type="number" class="form-control" min=0 value=0 name="log-prod-count" id="log-prod-count" aria-describedby="log-prod-count-help">
+                                    <small id="log-prod-count-help" class="form-text text-muted">Count of product</small>
+                                  </div>
+
+                            </div>
+
+
+                            <div class="col-10">
+                                <div class="form-group">
+                                    <label for="log-prod-res-count">Sheet Residue Count</label>
+                                    <input type="number" class="form-control" min=0 value=0 name="log-prod-res-count" id="log-prod-res-count" aria-describedby="log-prod-res-count-help">
+                                    <small id="log-prod-res-count-help" class="form-text text-muted">Count of product residue</small>
+                                  </div>
+
+                            </div>
+
+                            <div class="col-10">
+                                <div class="form-group">
+                                    <label for="log-prod-date">Date</label>
+                                    <input type="date" class="form-control" name="log-prod-date" id="log-prod-date" aria-describedby="log-prod-date-help">
+                                    <small id="log-prod-date-help" class="form-text text-muted">Select date.</small>
+                                  </div>
+
+                            </div>
+
+                            
+
+                            <div class="col-10">
+                                <button class="btn btn-primary" disabled>Submit</button>
+
+                            </div>
+
+                            
+
+                        </div>
+                    </div>
+
+                </form>
+                    
+                </div>
+
+
+
+
+                {% else %}
+
+
+
+
                 <div class="col-lg-8 log-col">
                     <form action="{% url 'home:product:product_index' %}" method="post">
                         {% csrf_token %}
@@ -265,6 +341,13 @@
                 </form>
                     
                 </div>
+
+
+
+
+                {% endif %}
+
+
             </div>
         </div>
 
