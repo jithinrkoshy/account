@@ -229,6 +229,8 @@ def emp_view_data(request):
         if(dla!=None):
             l = len(dla)
             x=0
+            tmpws = ""
+            ws=""
             months = {'01':'Jan','02':'Feb','03':'Mar','04':'Apr','05':'May','06':'Jun','07':'Jul','08':'Aug','09':'Sep','10':'Oct','11':'Nov','12':'Dec'}
             for i in range(l):
                 flag=0
@@ -241,8 +243,16 @@ def emp_view_data(request):
                 log_date = (str(dla[i].daily_log.date)).split("-")
                 log_date = log_date[2] + "-" + months[log_date[1]] + "-" + log_date[0]
                 tmp.append(str(log_date))
-                
-                tmp.append(str(dla[i].daily_log.work_status))
+
+                tmpws = str(dla[i].daily_log.work_status)
+                if(tmpws=="f"):
+                    ws="ve"
+                elif(tmpws=="h"):
+                    ws="ch"
+                else:
+                    ws= tmpws      
+                tmp.append(ws)
+
                 tmp.append(str(dla[i].created_by))
                 ct_dt = (str(dla[i].created_by_date)).split(".")[0]
                 tmp.append(ct_dt)
@@ -397,6 +407,8 @@ def get_excel(data):
 def download_excel(request , first_date = "2020-01-01",last_date = "2020-02-01"):
     
     data = []
+    tmpws = ""
+    ws=""
     wk_full_int = {'f':1,'h':0,'fh':0,'na':0}
     wk_half_int = {'f':0,'h':1,'fh':0,'na':0}
     wk_full_half_int = {'f':0,'h':0,'fh':1,'na':0}
@@ -414,7 +426,15 @@ def download_excel(request , first_date = "2020-01-01",last_date = "2020-02-01")
             dt_log = str(i.date).split("-")
             dt_log = dt_log[2] + "-" + dt_log[1] + "-"  +  dt_log[0]
             tmp.append(dt_log)
-            tmp.append(i.work_status)
+
+            tmpws = i.work_status
+            if(tmpws == "f"):
+                ws="ve"
+            elif(tmpws == "h"):
+                ws="ch" 
+            else:
+                ws =  tmpws      
+            tmp.append(ws)
             if(i.employee.e_id=='emp1'):
 
                 tmp.append(wk_full_int[i.work_status])
