@@ -36,7 +36,7 @@ var page_id = ($(this)[0].id).split("-");
 if(date_toggle == 0){
 
     page_id = page_id[1];
-    console.log(page_id);
+    
     if(page_id == 'n'){
         console.log('n');
         page_id = (parseInt(last_page) + 1).toString();
@@ -138,15 +138,26 @@ if(month.length==1){
     month = "0"+month
 }
 
-dt= dt.getFullYear()+"-"+ month + "-" + dt.getDate();
+
+
+var today_day = (dt.getDate()).toString();
+
+if(today_day.length == 1){
+
+    today_day = "0" + today_day;
+}
+
+
+start_view_dt = dt.getFullYear()+"-"+ month + "-" + "01";
+
+dt= dt.getFullYear()+"-"+ month + "-" + today_day;
 
 
 
 
-
-
-$("#first_date").val("2021-04-01");
+$("#first_date").val(start_view_dt);
 $("#last_date").val(dt);
+
 
 
 

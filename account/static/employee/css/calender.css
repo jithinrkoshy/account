@@ -13,6 +13,7 @@
  
 .green{
     color: darkgreen;
+    font-weight: 800;
 }
 
 .red{
@@ -21,14 +22,16 @@
 
 .purple{
     color:purple;
+    font-weight: 800;
 }
 
 .chartreuse{
-    color: rgb(113, 223, 3);
+    color: rgb(85, 170, 0);
+    font-weight: 800;
 }
 
 .black{
-    color: black;
+    color: rgb(185, 185, 185);
 }
 
 .cal-warning{

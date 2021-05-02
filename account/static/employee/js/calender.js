@@ -1,9 +1,22 @@
 $(document).ready(function(){
 
     month_list = ['01','02','03','04','05','06','07','08','09','10','11','12']
-    yr_list = ["2019","2020","2021"]
 
- 
+
+    yr_list = []
+
+   
+
+   for(var i=0;i<$("#cal-year")[0].length;i++){
+
+  
+    yr_list.push($("#cal-year")[0][i].value);
+
+   }
+
+
+   
+
     $('#submit-calender').click(function(e){
 
             e.preventDefault();
@@ -85,8 +98,17 @@ $(document).ready(function(){
 
     //Refreshing calender with current date
     var d = new Date()
+
     
-    $('#cal-month').val("0" + (d.getMonth()+1).toString());
+
+    today_month = (d.getMonth()+1).toString()
+    if(today_month.length==1){
+        today_month = "0" + today_month;
+    }
+    $('#cal-month').val(today_month);
+
+    
+
     $('#cal-year').val((d.getFullYear()).toString());
 
     $('#submit-calender').click();

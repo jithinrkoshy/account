@@ -12,7 +12,8 @@
 }
 
 .green{
-    color: chartreuse;
+    color: darkgreen;
+    font-weight: 800;
 }
 
 .red{
@@ -21,10 +22,11 @@
 
 .purple{
     color:purple;
+    font-weight: 800;
 }
 
 .black{
-    color: black;
+    color: rgb(185, 185, 185);
 }
 
 #cal-table{
