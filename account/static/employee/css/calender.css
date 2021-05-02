@@ -10,9 +10,9 @@
     
     
 }
-
+ 
 .green{
-    color: chartreuse;
+    color: darkgreen;
 }
 
 .red{
@@ -23,8 +23,19 @@
     color:purple;
 }
 
+.chartreuse{
+    color: rgb(113, 223, 3);
+}
+
 .black{
     color: black;
+}
+
+.cal-warning{
+    width:4px;
+    height:4px;
+    border-radius: 50%;
+    background-color: orangered;
 }
 
 #cal-table{
@@ -36,6 +47,8 @@
     border: 1px solid #acaaaa;
     text-align: center;
     padding: 4px;
+    
+    width: 14%;
   }
 
  

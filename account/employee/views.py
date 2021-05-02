@@ -10,7 +10,7 @@ import os
 from os import listdir
 from os.path import isfile, join
 import sys
-
+ 
 
 # Create your views here.
 def get_days(year,month):
@@ -181,9 +181,20 @@ def calender(request):
         dl_objs = DailyLog.objects.filter(date__gte=first_date, date__lte=last_date)     
         for i in range(l_day_list):
             for j in dl_objs:
+                flag=0
                 if(cal_int_str_dash(year,month,days[i]) == str(j.date)):
-                    if(j.work_status == 'na'):
-                        log_flag[i] = 2
+                    for k in dl_objs:
+                        if(str(k.date) == str(j.date) and k.id!=j.id):
+                            flag=1
+                            if(k.work_status!=j.work_status and k.work_status=='na'):
+                                log_flag[i] = 3
+                            elif(k.work_status!=j.work_status and j.work_status=='na'):
+                                log_flag[i] = 3
+                            elif(k.work_status == 'na' and j.work_status == 'na'):
+                                log_flag[i] = 2
+
+                    if(flag==0):
+                        log_flag[i] = 4
 
 
         return JsonResponse({'days':days,'log_flag':log_flag,'start_day':start_day})

@@ -17,7 +17,7 @@ $(document).ready(function(){
 
 
           
-            
+             
             $.ajax({
                 url: '/employee/calender',
                 type: 'POST',
@@ -59,7 +59,13 @@ $(document).ready(function(){
                             }
                             else if(log_flag[i]==2){
                                 day_value = "<span class='purple'>" + days[i].toString() + "</span>";
-                            }   
+                            }
+                            else if(log_flag[i]==3){
+                                day_value = "<span class='chartreuse'>" + days[i].toString() + "</span>";
+                            }
+                            else if(log_flag[i]==4){
+                                day_value = "<span class='green'>" + days[i].toString() + "</span><div class='cal-warning'></div>";
+                            }     
                             else if(log_flag[i]==-1){
                                 day_value = "<span class='black'>" + days[i].toString() + "</span>";
                             }           
