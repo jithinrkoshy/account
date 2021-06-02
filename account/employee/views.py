@@ -210,6 +210,13 @@ def get_start_end(n,d_per_p,data_len):
 
 @login_required
 def emp_view_data(request):
+
+    #array - dyn_status
+    #dyn_status[0] - podimon vettu
+    #dyn_status[1] - podimon cheekal
+    #dyn_status[2] - john vettu
+    #dyn_status[3] - john cheekal
+    dyn_status = [0,0,0,0]
     data = []
     flag=0
     if request.method == 'POST':
@@ -245,6 +252,8 @@ def emp_view_data(request):
                 tmp.append(str(log_date))
 
                 tmpws = str(dla[i].daily_log.work_status)
+
+
                 if(tmpws=="f"):
                     ws="ve"
                 elif(tmpws=="h"):
@@ -257,6 +266,18 @@ def emp_view_data(request):
                 ct_dt = (str(dla[i].created_by_date)).split(".")[0]
                 tmp.append(ct_dt)
                 if(flag==1):
+                    if(dla[i].daily_log.employee.e_id == "emp1"):
+                        if(ws == "ve"):
+                            dyn_status[0]+=1
+                        elif(ws == "ch"):
+                            dyn_status[1]+=1
+
+                    elif(dla[i].daily_log.employee.e_id == "emp2"):
+                        if(ws == "ve"):
+                            dyn_status[2]+=1
+                        elif(ws == "ch"):
+                            dyn_status[3]+=1
+
                     data.append(tmp)
         data_len = len(data)
         d_per_p = 10
@@ -265,7 +286,9 @@ def emp_view_data(request):
         n = int(request.POST['page_no'])
         start_index,end_index = get_start_end(n,d_per_p,data_len)
         final_data = data[start_index:end_index]    
-        return JsonResponse({'final_data':final_data,'pages':frag})
+
+        
+        return JsonResponse({'final_data':final_data,'pages':frag,'dyn_status':dyn_status})
     else:
         return render(request,'employee/empviewdata.html')
 

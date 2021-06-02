@@ -207,6 +207,7 @@ def get_start_end(n,d_per_p,data_len):
 @login_required
 def product_view_data(request):
     data = []
+    count_sheets = 0
     # .filter(date__gte=first_date, date__lte=last_date)
     if request.method == 'POST': 
         first_date = request.POST['first_date']
@@ -222,8 +223,11 @@ def product_view_data(request):
                 tmp=[]
                 tmp.append(str(i+1))
                 tmp.append(str(dla[i].product_daily_log.sheet_count))
-                tmp.append(str(dla[i].product_daily_log.sheet_residue_count))
 
+                count_sheets = count_sheets + dla[i].product_daily_log.sheet_count
+
+                tmp.append(str(dla[i].product_daily_log.sheet_residue_count))
+                
                 log_date = (str(dla[i].product_daily_log.date)).split("-")
                 log_date = log_date[2] + "-" + months[log_date[1]] + "-" + log_date[0]
                 tmp.append(str(log_date))
@@ -240,7 +244,8 @@ def product_view_data(request):
         n = int(request.POST['page_no'])
         start_index,end_index = get_start_end(n,d_per_p,data_len)
         final_data = data[start_index:end_index]    
-        return JsonResponse({'final_data':final_data,'pages':frag})
+
+        return JsonResponse({'final_data':final_data,'pages':frag,'count_sheets':count_sheets})
     else:
         return render(request,'product/productviewdata.html')    
 

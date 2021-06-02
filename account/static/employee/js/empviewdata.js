@@ -122,6 +122,14 @@ $.ajax({
 
         
 
+        $("#v-1").text(data.dyn_status[0]);
+        $("#v-2").text(data.dyn_status[2]);
+        $("#ch-1").text(data.dyn_status[1]);
+        $("#ch-2").text(data.dyn_status[3]);
+
+
+
+
         
     }
 

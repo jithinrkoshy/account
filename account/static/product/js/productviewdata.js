@@ -123,7 +123,7 @@ $.ajax({
 
         
 
-        
+        $("#dyn-data-prod").text(data.count_sheets);
     }
 
 
